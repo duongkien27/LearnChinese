@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { speak } from '../utils/speak'
 import { getIllustration } from '../utils/illustration'
 
@@ -10,6 +10,9 @@ import { getIllustration } from '../utils/illustration'
 export default function Flashcard({ items, isLearned, onToggle }) {
   const [index, setIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
+  const [dir, setDir] = useState('next') // slide direction for the transition
+  const touchStart = useRef({ x: 0, y: 0 })
+  const didSwipe = useRef(false)
 
   // Keep the index valid when the deck (filter/tab) changes.
   useEffect(() => {
@@ -31,22 +34,60 @@ export default function Flashcard({ items, isLearned, onToggle }) {
   const emoji = getIllustration(card)
 
   const go = (delta) => {
+    setDir(delta >= 0 ? 'next' : 'prev')
     setFlipped(false)
     setIndex((i) => (i + delta + items.length) % items.length)
   }
 
+  // Tap flips the card; a horizontal drag swipes to the next/previous card.
+  const onTouchStart = (e) => {
+    const t = e.changedTouches[0]
+    touchStart.current = { x: t.clientX, y: t.clientY }
+    didSwipe.current = false
+  }
+  const onTouchEnd = (e) => {
+    const t = e.changedTouches[0]
+    const dx = t.clientX - touchStart.current.x
+    const dy = t.clientY - touchStart.current.y
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      didSwipe.current = true
+      go(dx < 0 ? 1 : -1)
+    }
+  }
+  const onCardClick = () => {
+    if (didSwipe.current) {
+      didSwipe.current = false
+      return
+    }
+    setFlipped((f) => !f)
+  }
+
+  // Marking a card as learned auto-advances to the next one; un-marking an
+  // already-learned card stays put so it can be undone.
+  const handleLearn = () => {
+    const wasLearned = learned
+    onToggle(card.id)
+    if (!wasLearned) go(1)
+  }
+
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center overflow-x-clip">
       <p className="mb-4 text-sm font-medium text-slate-400">
         Thẻ {index + 1} / {items.length}
       </p>
 
-      {/* Card */}
+      {/* Card — key on index replays the slide-in animation on each change */}
       <div
-        className="flip-card h-72 w-full max-w-md cursor-pointer sm:h-80"
-        onClick={() => setFlipped((f) => !f)}
+        key={index}
+        className={`w-full max-w-md ${dir === 'prev' ? 'card-enter-prev' : 'card-enter-next'}`}
       >
-        <div className={`flip-inner ${flipped ? 'is-flipped' : ''}`}>
+        <div
+          className="flip-card h-72 w-full cursor-pointer select-none sm:h-80"
+          onClick={onCardClick}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          <div className={`flip-inner ${flipped ? 'is-flipped' : ''}`}>
           {/* Front */}
           <div className="flip-face rounded-3xl border border-slate-100 bg-white shadow-card">
             {emoji && <span className="mb-3 text-6xl leading-none sm:text-7xl">{emoji}</span>}
@@ -72,6 +113,7 @@ export default function Flashcard({ items, isLearned, onToggle }) {
             <span className="mt-2 px-6 text-center text-lg text-slate-600">{card.vietnamese}</span>
           </div>
         </div>
+        </div>
       </div>
 
       {/* Actions */}
@@ -92,7 +134,7 @@ export default function Flashcard({ items, isLearned, onToggle }) {
         </button>
 
         <button
-          onClick={() => onToggle(card.id)}
+          onClick={handleLearn}
           className={`flex h-11 items-center gap-2 rounded-full px-5 text-sm font-medium transition
             ${
               learned

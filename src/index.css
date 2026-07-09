@@ -46,6 +46,34 @@ body {
   transform: rotateY(180deg);
 }
 
+/* Card change: slide-in transition (swipe feel) */
+@keyframes cardInRight {
+  from {
+    opacity: 0;
+    transform: translateX(42px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes cardInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-42px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.card-enter-next {
+  animation: cardInRight 0.28s ease both;
+}
+.card-enter-prev {
+  animation: cardInLeft 0.28s ease both;
+}
+
 /* Subtle scrollbar */
 .scroll-thin::-webkit-scrollbar {
   width: 8px;
