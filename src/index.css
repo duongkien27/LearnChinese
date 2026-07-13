@@ -46,32 +46,40 @@ body {
   transform: rotateY(180deg);
 }
 
-/* Card change: slide-in transition (swipe feel) */
+/* Card change: slide-in transition (swipe feel).
+   Slow decelerating curve + a hint of scale/tilt so the card settles
+   naturally like a paper card being dealt. */
 @keyframes cardInRight {
   from {
     opacity: 0;
-    transform: translateX(42px);
+    transform: translateX(90px) rotate(1.2deg) scale(0.97);
+  }
+  60% {
+    opacity: 1;
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) rotate(0deg) scale(1);
   }
 }
 @keyframes cardInLeft {
   from {
     opacity: 0;
-    transform: translateX(-42px);
+    transform: translateX(-90px) rotate(-1.2deg) scale(0.97);
+  }
+  60% {
+    opacity: 1;
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) rotate(0deg) scale(1);
   }
 }
 .card-enter-next {
-  animation: cardInRight 0.28s ease both;
+  animation: cardInRight 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .card-enter-prev {
-  animation: cardInLeft 0.28s ease both;
+  animation: cardInLeft 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Subtle scrollbar */
