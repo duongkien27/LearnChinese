@@ -3,7 +3,6 @@
     {
       "key": "g1",
       "label": "Phần 1",
-      "sub": "ài – fàn",
       "items": [
         {"id":"v-001","chinese":"爱","pinyin":"ài","type":"động từ","vietnamese":"yêu, thích","audio":null,"category":"g1","example":"我爱我的家。","examplePinyin":"Wǒ ài wǒ de jiā.","exampleVi":"Tôi yêu gia đình tôi."},
         {"id":"v-002","chinese":"吧","pinyin":"ba","type":"trợ từ","vietnamese":"nhé (đề nghị)","audio":null,"category":"g1","example":"我们走吧。","examplePinyin":"Wǒmen zǒu ba.","exampleVi":"Chúng ta đi thôi."},
@@ -60,7 +59,6 @@
     {
       "key": "g2",
       "label": "Phần 2",
-      "sub": "fàndiàn – kànbìng",
       "items": [
         {"id":"v-051","chinese":"饭店","pinyin":"fàndiàn","type":"danh từ","vietnamese":"nhà hàng","audio":null,"category":"g2","example":"这个饭店很好。","examplePinyin":"Zhège fàndiàn hěn hǎo.","exampleVi":"Nhà hàng này rất tốt."},
         {"id":"v-052","chinese":"房间","pinyin":"fángjiān","type":"danh từ","vietnamese":"phòng","audio":null,"category":"g2","example":"这是我的房间。","examplePinyin":"Zhè shì wǒ de fángjiān.","exampleVi":"Đây là phòng của tôi."},
@@ -117,7 +115,6 @@
     {
       "key": "g3",
       "label": "Phần 3",
-      "sub": "kànjiàn – nín",
       "items": [
         {"id":"v-101","chinese":"看见","pinyin":"kànjiàn","type":"động từ","vietnamese":"nhìn thấy","audio":null,"category":"g3","example":"我看见他了。","examplePinyin":"Wǒ kànjiàn tā le.","exampleVi":"Tôi nhìn thấy anh ấy rồi."},
         {"id":"v-102","chinese":"课","pinyin":"kè","type":"danh từ","vietnamese":"bài học","audio":null,"category":"g3","example":"我有汉语课。","examplePinyin":"Wǒ yǒu Hànyǔ kè.","exampleVi":"Tôi có tiết tiếng Trung."},
@@ -174,7 +171,6 @@
     {
       "key": "g4",
       "label": "Phần 4",
-      "sub": "niúnǎi – tā",
       "items": [
         {"id":"v-151","chinese":"牛奶","pinyin":"niúnǎi","type":"danh từ","vietnamese":"sữa","audio":null,"category":"g4","example":"我喝牛奶。","examplePinyin":"Wǒ hē niúnǎi.","exampleVi":"Tôi uống sữa."},
         {"id":"v-152","chinese":"女","pinyin":"nǚ","type":"tính từ","vietnamese":"nữ","audio":null,"category":"g4","example":"她是女的。","examplePinyin":"Tā shì nǚ de.","exampleVi":"Cô ấy là nữ."},
@@ -231,7 +227,6 @@
     {
       "key": "g5",
       "label": "Phần 5",
-      "sub": "tā – xuéxí",
       "items": [
         {"id":"v-201","chinese":"它","pinyin":"tā","type":"đại từ","vietnamese":"nó (đồ vật / con vật)","audio":null,"category":"g5","example":"它是我的猫。","examplePinyin":"Tā shì wǒ de māo.","exampleVi":"Nó là con mèo của tôi."},
         {"id":"v-202","chinese":"她","pinyin":"tā","type":"đại từ","vietnamese":"cô ấy","audio":null,"category":"g5","example":"她是我姐姐。","examplePinyin":"Tā shì wǒ jiějie.","exampleVi":"Cô ấy là chị gái tôi."},
@@ -288,7 +283,6 @@
     {
       "key": "g6",
       "label": "Phần 6",
-      "sub": "xuéxiào – zuótiān",
       "items": [
         {"id":"v-251","chinese":"学校","pinyin":"xuéxiào","type":"danh từ","vietnamese":"trường học","audio":null,"category":"g6","example":"我去学校。","examplePinyin":"Wǒ qù xuéxiào.","exampleVi":"Tôi đến trường."},
         {"id":"v-252","chinese":"要","pinyin":"yào","type":"động từ","vietnamese":"muốn, cần","audio":null,"category":"g6","example":"我要一杯茶。","examplePinyin":"Wǒ yào yì bēi chá.","exampleVi":"Tôi muốn một cốc trà."},

@@ -37,8 +37,8 @@ export default function App() {
   const tabs = useMemo(() => {
     if (!data) return []
     return [
-      ...data.groups.map((g) => ({ key: g.key, label: g.label, sub: g.sub })),
-      { key: 'sentences', label: 'Giao tiếp', sub: '100 câu' },
+      ...data.groups.map((g) => ({ key: g.key, label: g.label, items: g.items })),
+      { key: 'sentences', label: 'Giao tiếp', items: data.sentences },
     ]
   }, [data])
 
@@ -75,26 +75,40 @@ export default function App() {
 
       {/* Tabs (scrollable) */}
       <nav className="scroll-thin -mx-4 mb-4 flex gap-2 overflow-x-auto px-4 pb-1">
-        {tabs.map((t) => (
-          <button
-            key={t.key}
-            onClick={() => setTab(t.key)}
-            className={`shrink-0 rounded-2xl border px-4 py-2 text-center transition ${
-              tab === t.key
-                ? 'border-brand-500 bg-brand-50'
-                : 'border-slate-200 bg-white hover:border-brand-200'
-            }`}
-          >
-            <span
-              className={`block text-sm font-semibold ${
-                tab === t.key ? 'text-brand-600' : 'text-slate-600'
+        {tabs.map((t) => {
+          const done = t.items.filter((it) => isLearned(it.id)).length
+          const tabPct = t.items.length ? Math.round((done / t.items.length) * 100) : 0
+          return (
+            <button
+              key={t.key}
+              onClick={() => setTab(t.key)}
+              className={`shrink-0 rounded-2xl border px-4 py-2 text-center transition ${
+                tab === t.key
+                  ? 'border-brand-500 bg-brand-50'
+                  : 'border-slate-200 bg-white hover:border-brand-200'
               }`}
             >
-              {t.label}
-            </span>
-            <span className="block whitespace-nowrap text-[11px] text-slate-400">{t.sub}</span>
-          </button>
-        ))}
+              <span
+                className={`block text-sm font-semibold ${
+                  tab === t.key ? 'text-brand-600' : 'text-slate-600'
+                }`}
+              >
+                {t.label}
+              </span>
+              <div className="mt-1.5 flex items-center gap-1.5">
+                <div className="h-1.5 w-14 overflow-hidden rounded-full bg-slate-200">
+                  <div
+                    className="h-full rounded-full bg-emerald-500 transition-all duration-500"
+                    style={{ width: `${tabPct}%` }}
+                  />
+                </div>
+                <span className="text-[10px] tabular-nums text-slate-400">
+                  {done}/{t.items.length}
+                </span>
+              </div>
+            </button>
+          )
+        })}
       </nav>
 
       {/* Progress */}
