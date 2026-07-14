@@ -39,12 +39,14 @@ export default function App() {
     return [
       ...data.groups.map((g) => ({ key: g.key, label: g.label, items: g.items })),
       { key: 'sentences', label: 'Giao tiếp', items: data.sentences },
+      { key: 'radicals', label: 'Bộ thủ', items: data.radicals ?? [] },
     ]
   }, [data])
 
   const allItems = useMemo(() => {
     if (!data || !tab) return []
     if (tab === 'sentences') return data.sentences
+    if (tab === 'radicals') return data.radicals ?? []
     return data.groups.find((g) => g.key === tab)?.items ?? []
   }, [data, tab])
 
@@ -56,7 +58,8 @@ export default function App() {
       (it) =>
         it.chinese.toLowerCase().includes(q) ||
         it.pinyin.toLowerCase().includes(q) ||
-        it.vietnamese.toLowerCase().includes(q)
+        it.vietnamese.toLowerCase().includes(q) ||
+        (it.hanviet && it.hanviet.toLowerCase().includes(q))
     )
   }, [allItems, query])
 

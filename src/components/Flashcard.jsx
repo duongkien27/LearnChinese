@@ -182,7 +182,8 @@ export default function Flashcard({ items, isLearned, onToggle }) {
 
   const card = items[Math.min(index, items.length - 1)]
   const learned = isLearned(card.id)
-  const emoji = getIllustration(card)
+  const isRadical = card.category === 'radicals'
+  const emoji = isRadical ? null : getIllustration(card)
   const remaining = items.filter((it) => !isLearned(it.id)).length
 
   // Marking a card as learned auto-advances; un-marking stays put to undo.
@@ -206,7 +207,9 @@ export default function Flashcard({ items, isLearned, onToggle }) {
         className={`w-full max-w-md ${dir === 'prev' ? 'card-enter-prev' : 'card-enter-next'}`}
       >
         <div
-          className="flip-card h-72 w-full cursor-pointer select-none sm:h-80"
+          className={`flip-card w-full cursor-pointer select-none ${
+            isRadical ? 'h-96' : 'h-72 sm:h-80'
+          }`}
           onClick={onCardClick}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
@@ -214,33 +217,77 @@ export default function Flashcard({ items, isLearned, onToggle }) {
           <div className={`flip-inner ${flipped ? 'is-flipped' : ''}`}>
             {/* Front */}
             <div className="flip-face rounded-3xl border border-slate-100 bg-white px-6 shadow-card">
-              {emoji && <span className="mb-1 text-4xl leading-none sm:text-5xl">{emoji}</span>}
-              <span className="font-cn text-6xl font-medium leading-tight text-slate-900 sm:text-7xl">
-                {card.chinese}
-              </span>
-              {card.example && (
-                <p className="mt-4 font-cn text-lg leading-snug text-slate-600 sm:text-xl">
-                  {highlightExample(card.example, card.chinese)}
-                </p>
+              {isRadical ? (
+                <>
+                  {card.image && (
+                    <img
+                      src={card.image}
+                      alt=""
+                      className="h-48 w-48 rounded-xl bg-white object-contain"
+                    />
+                  )}
+                  <span className="mt-2 font-cn text-4xl font-medium text-slate-900">
+                    {card.chinese}
+                    {card.variant && (
+                      <span className="ml-1 text-2xl text-slate-400">({card.variant})</span>
+                    )}
+                  </span>
+                </>
+              ) : (
+                <>
+                  {emoji && <span className="mb-1 text-4xl leading-none sm:text-5xl">{emoji}</span>}
+                  <span className="font-cn text-6xl font-medium leading-tight text-slate-900 sm:text-7xl">
+                    {card.chinese}
+                  </span>
+                  {card.example && (
+                    <p className="mt-4 font-cn text-lg leading-snug text-slate-600 sm:text-xl">
+                      {highlightExample(card.example, card.chinese)}
+                    </p>
+                  )}
+                </>
               )}
               <span className="mt-3 text-xs text-slate-400">Nhấn để lật thẻ</span>
             </div>
             {/* Back */}
             <div className="flip-face flip-back rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white px-6 shadow-card">
-              <span className="font-cn text-4xl font-medium text-slate-800">{card.chinese}</span>
-              <span className="mt-2 text-2xl font-semibold text-brand-600">{card.pinyin}</span>
-              <span className="mt-1 text-lg text-slate-600">
-                {card.vietnamese}
-                {card.type && <span className="text-slate-400"> · {card.type}</span>}
-              </span>
-              {card.example && (
-                <div className="mt-3 w-full border-t border-brand-100 pt-3 text-center">
-                  <p className="font-cn text-base text-slate-700">
-                    {highlightExample(card.example, card.chinese)}
-                  </p>
-                  <p className="mt-0.5 text-xs text-slate-500">{card.examplePinyin}</p>
-                  <p className="text-xs text-slate-400">{card.exampleVi}</p>
-                </div>
+              {isRadical ? (
+                <>
+                  <div className="flex items-baseline gap-2">
+                    <span className="font-cn text-3xl font-medium text-slate-800">
+                      {card.chinese}
+                    </span>
+                    <span className="text-xl font-semibold text-brand-600">{card.pinyin}</span>
+                  </div>
+                  <span className="mt-1 text-base text-slate-600">
+                    <b className="text-slate-700">{card.hanviet}</b> · {card.vietnamese}
+                  </span>
+                  {card.examples && (
+                    <div className="mt-4 w-full border-t border-brand-100 pt-3 text-center">
+                      <p className="text-[11px] uppercase tracking-wide text-slate-400">Ví dụ</p>
+                      <p className="mt-0.5 font-cn text-sm leading-relaxed text-slate-600">
+                        {card.examples.join('　')}
+                      </p>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  <span className="font-cn text-4xl font-medium text-slate-800">{card.chinese}</span>
+                  <span className="mt-2 text-2xl font-semibold text-brand-600">{card.pinyin}</span>
+                  <span className="mt-1 text-lg text-slate-600">
+                    {card.vietnamese}
+                    {card.type && <span className="text-slate-400"> · {card.type}</span>}
+                  </span>
+                  {card.example && (
+                    <div className="mt-3 w-full border-t border-brand-100 pt-3 text-center">
+                      <p className="font-cn text-base text-slate-700">
+                        {highlightExample(card.example, card.chinese)}
+                      </p>
+                      <p className="mt-0.5 text-xs text-slate-500">{card.examplePinyin}</p>
+                      <p className="text-xs text-slate-400">{card.exampleVi}</p>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>

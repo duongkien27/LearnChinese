@@ -165,6 +165,9 @@ function MeaningQuiz({ card, emoji, revealed, onFlip, onGrade }) {
                 {card.type}
               </span>
             )}
+            {card.hanviet && (
+              <span className="mt-1 text-sm font-semibold text-slate-700">{card.hanviet}</span>
+            )}
             <span className="mt-1 px-6 text-center text-lg text-slate-600">{card.vietnamese}</span>
           </div>
         </div>
@@ -209,6 +212,7 @@ function WritingQuiz({ card, emoji, value, setValue, status, onCheck, onNext, is
         {emoji && <p className="mt-3 text-6xl leading-none">{emoji}</p>}
         <p className="mt-4 text-2xl font-semibold text-brand-600">{card.pinyin}</p>
         {card.type && <p className="mt-1 text-xs text-slate-400">{card.type}</p>}
+        {card.hanviet && <p className="text-sm font-semibold text-slate-700">{card.hanviet}</p>}
         <p className="mt-1 text-lg text-slate-600">{card.vietnamese}</p>
 
         <input

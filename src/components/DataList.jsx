@@ -33,12 +33,27 @@ export default function DataList({ items, isLearned, onToggle }) {
               🔊
             </button>
 
+            {item.image && (
+              <img
+                src={item.image}
+                alt=""
+                loading="lazy"
+                className="h-14 w-14 shrink-0 rounded-lg bg-white object-contain"
+              />
+            )}
+
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <span className="font-cn text-2xl font-medium leading-tight text-slate-900">
                   {item.chinese}
+                  {item.variant && (
+                    <span className="ml-1 text-lg text-slate-400">({item.variant})</span>
+                  )}
                 </span>
                 <span className="text-sm font-medium text-brand-600">{item.pinyin}</span>
+                {item.hanviet && (
+                  <span className="text-sm font-medium text-slate-700">{item.hanviet}</span>
+                )}
                 {item.type && (
                   <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] text-slate-500">
                     {item.type}
@@ -46,6 +61,11 @@ export default function DataList({ items, isLearned, onToggle }) {
                 )}
               </div>
               <p className="mt-0.5 truncate text-sm text-slate-500">{item.vietnamese}</p>
+              {item.examples && (
+                <p className="mt-1 truncate font-cn text-xs text-slate-400">
+                  {item.examples.join(' · ')}
+                </p>
+              )}
             </div>
 
             <label className="flex shrink-0 cursor-pointer select-none items-center gap-2">
