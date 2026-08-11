@@ -206,7 +206,6 @@ export default function Flashcard({ items, isLearned, onToggle }) {
         key={index}
         className={`w-full max-w-md ${dir === 'prev' ? 'card-enter-prev' : 'card-enter-next'}`}
       >
-<<<<<<< Updated upstream
         <div
           className={`flip-card w-full cursor-pointer select-none ${
             isRadical ? 'h-96' : 'h-72 sm:h-80'
@@ -236,7 +235,6 @@ export default function Flashcard({ items, isLearned, onToggle }) {
                 </>
               ) : (
                 <>
-                  {emoji && <span className="mb-1 text-4xl leading-none sm:text-5xl">{emoji}</span>}
                   <span className="font-cn text-6xl font-medium leading-tight text-slate-900 sm:text-7xl">
                     {card.chinese}
                   </span>
@@ -273,6 +271,7 @@ export default function Flashcard({ items, isLearned, onToggle }) {
                 </>
               ) : (
                 <>
+                  {emoji && <span className="mb-2 text-5xl leading-none">{emoji}</span>}
                   <span className="font-cn text-4xl font-medium text-slate-800">{card.chinese}</span>
                   <span className="mt-2 text-2xl font-semibold text-brand-600">{card.pinyin}</span>
                   <span className="mt-1 text-lg text-slate-600">
@@ -291,27 +290,6 @@ export default function Flashcard({ items, isLearned, onToggle }) {
                 </>
               )}
             </div>
-=======
-        <div className={`flip-inner ${flipped ? 'is-flipped' : ''}`}>
-          {/* Front */}
-          <div className="flip-face rounded-3xl border border-slate-100 bg-white shadow-card">
-            <span className="font-cn text-7xl font-medium text-slate-900 sm:text-8xl">
-              {card.chinese}
-            </span>
-            <span className="mt-6 text-sm text-slate-400">Nhấn để lật thẻ</span>
-          </div>
-          {/* Back */}
-          <div className="flip-face flip-back rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white shadow-card">
-            {emoji && <span className="mb-2 text-5xl leading-none">{emoji}</span>}
-            <span className="font-cn text-4xl font-medium text-slate-800">{card.chinese}</span>
-            <span className="mt-3 text-2xl font-semibold text-brand-600">{card.pinyin}</span>
-            {card.type && (
-              <span className="mt-1 rounded-full bg-white/70 px-2 py-0.5 text-xs text-slate-500">
-                {card.type}
-              </span>
-            )}
-            <span className="mt-2 px-6 text-center text-lg text-slate-600">{card.vietnamese}</span>
->>>>>>> Stashed changes
           </div>
         </div>
       </div>
